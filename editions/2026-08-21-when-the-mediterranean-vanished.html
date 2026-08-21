@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="One genuinely new topic every weekday — a 15-minute read for the commute.">
+<title>The Commute Briefing</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,450;0,9..144,600;0,9..144,700;1,9..144,450&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Archivo:wght@500;600;700&display=swap">
+<style>
+  :root {
+    --bg: #F6F6F1;
+    --surface: #FDFDFA;
+    --ink: #1D2422;
+    --muted: #4E5955;
+    --faint: #79837E;
+    --accent: #0E6B70;
+    --accent-deep: #0A5257;
+    --accent-soft: #E2EDEB;
+    --rule: #DCDED4;
+    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --display: "Fraunces", Georgia, serif;
+    --label: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #101614;
+      --surface: #182019;
+      --ink: #E9E7DC;
+      --muted: #ABB3AC;
+      --faint: #7D857F;
+      --accent: #57BEC2;
+      --accent-deep: #85D2D5;
+      --accent-soft: #1C2B29;
+      --rule: #2A322E;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #101614;
+    --surface: #182019;
+    --ink: #E9E7DC;
+    --muted: #ABB3AC;
+    --faint: #7D857F;
+    --accent: #57BEC2;
+    --accent-deep: #85D2D5;
+    --accent-soft: #1C2B29;
+    --rule: #2A322E;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    margin: 0;
+    padding: 0 1.25rem 4rem;
+  }
+  .sheet { max-width: 40rem; margin: 0 auto; }
+
+  /* Masthead */
+  .masthead {
+    display: flex; flex-direction: column; gap: 0.35rem;
+    padding: 2.25rem 0 1.1rem;
+    border-bottom: 3px solid var(--ink);
+    margin-bottom: 0.4rem;
+  }
+  .wordmark {
+    font-family: var(--label);
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+  .wordmark span { color: var(--accent); }
+  .edition-meta {
+    font-family: var(--label);
+    font-weight: 500;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  /* Edition header */
+  .eyebrow {
+    font-family: var(--label);
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 2rem 0 0;
+  }
+  h1 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(2.1rem, 7.5vw, 3rem);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin: 0.5rem 0 1rem;
+  }
+  .standfirst {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.2rem;
+    line-height: 1.55;
+    color: var(--muted);
+    text-wrap: balance;
+    margin: 0 0 2.25rem;
+  }
+
+  /* Article */
+  article p { margin: 0 0 1.25rem; }
+  article h2 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 1.25;
+    text-wrap: balance;
+    margin: 2.75rem 0 0.9rem;
+  }
+  .lead::first-letter {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 3.6em;
+    line-height: 0.85;
+    float: left;
+    padding: 0.06em 0.12em 0 0;
+    color: var(--accent);
+  }
+  em { font-style: italic; }
+  strong { font-weight: 600; }
+  a { color: var(--accent-deep); text-decoration-color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+
+  /* Stat block */
+  .stats {
+    display: flex; flex-direction: column; gap: 1.15rem;
+    background: var(--surface);
+    border-top: 3px solid var(--accent);
+    border-bottom: 1px solid var(--rule);
+    padding: 1.5rem 1.4rem;
+    margin: 1.9rem 0;
+  }
+  .stat .figure {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.7rem;
+    line-height: 1.15;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat .gloss {
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: var(--muted);
+    margin-top: 0.15rem;
+  }
+
+  /* Lenses */
+  .lenses { display: flex; flex-direction: column; gap: 1rem; margin: 1.4rem 0 0; }
+  .lens {
+    background: var(--accent-soft);
+    border-left: 3px solid var(--accent);
+    padding: 1.05rem 1.2rem;
+    font-size: 0.99rem;
+    line-height: 1.68;
+  }
+  .lens b {
+    display: block;
+    font-family: var(--label);
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    margin-bottom: 0.35rem;
+  }
+
+  /* NotebookLM pack */
+  .pack {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--ink);
+    padding: 1.6rem 1.4rem;
+    margin: 3rem 0 0;
+  }
+  .pack h2 { margin: 0 0 0.3rem; font-size: 1.35rem; }
+  .pack .how {
+    font-size: 0.95rem; color: var(--muted); margin: 0 0 1.2rem;
+  }
+  .sources { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1.05rem; }
+  .sources li { display: flex; gap: 0.85rem; }
+  .src-num {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--accent);
+    min-width: 1.1rem;
+  }
+  .src-name { font-weight: 600; font-size: 0.99rem; line-height: 1.5; }
+  .src-kind {
+    font-family: var(--label); font-weight: 500; font-size: 0.7rem;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint);
+  }
+  .src-url {
+    font-size: 0.85rem; line-height: 1.5; overflow-wrap: anywhere;
+  }
+  .focus {
+    border-left: 3px solid var(--rule);
+    margin: 1.4rem 0 0; padding: 0.2rem 0 0.2rem 1.1rem;
+    font-style: italic; font-size: 0.98rem; color: var(--muted);
+  }
+  .focus b {
+    display: block; font-style: normal;
+    font-family: var(--label); font-weight: 600; font-size: 0.7rem;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);
+    margin-bottom: 0.25rem;
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 3rem; padding-top: 1.1rem;
+    border-top: 1px solid var(--rule);
+    font-family: var(--label); font-weight: 500;
+    font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--faint); line-height: 2;
+  }
+</style>
+</head>
+<body>
+
+
+<div class="sheet">
+  <header class="masthead">
+    <div class="wordmark">The Commute <span>Briefing</span></div>
+    <div class="edition-meta">№ 1 · Friday 21 August 2026 · One new thing, every weekday</div>
+  </header>
+
+  <!-- EDITION CONTENT START -->
+  <p class="eyebrow">Natural science · ~15 min read</p>
+  <h1>When the Mediterranean Vanished</h1>
+  <p class="standfirst">Five and a half million years ago, the Mediterranean Sea dried into a salt desert five kilometres deep. Then it came back — possibly in under two years, through the biggest flood the planet has ever seen.</p>
+
+  <article>
+    <h2>A drill ship finds something impossible</h2>
+    <p class="lead">In the summer of 1970, a research vessel called the <em>Glomar Challenger</em> was working its way across the Mediterranean, drilling cores out of the deep seafloor. This was Leg 13 of the Deep Sea Drilling Project, and the two chief scientists aboard — Kenneth Hsü and William Ryan — were expecting the usual: soft marine muds, the slow gentle rain of dead plankton, kilometre after kilometre of ordinary ocean history.</p>
+    <p>What came up in the core barrels instead made no sense.</p>
+    <p>Gravel — the kind deposited by desert flash floods. Red and green silts, the signature of sun-baked floodplains. And then, from beneath two kilometres of water, layer after layer of gypsum, anhydrite and rock salt — minerals that form in one way only: when a body of water evaporates to nothing, the way a puddle leaves a white ring on a summer footpath.</p>
+    <p>The seafloor of the Mediterranean, in other words, had once been dry land. Not a shoreline, not a shallow lagoon — the <em>deep floor</em>, the abyssal plain itself, had been a blistering desert open to the sky. Hsü was so taken by the idea that he later wrote a book about the discovery and called it, flatly, <em>The Mediterranean Was a Desert</em>.</p>
+    <p>The claim was received about as well as you'd expect. Geology had spent a century purging itself of biblical-style catastrophes; the field's whole identity was built on slow, steady processes. And here were two scientists announcing that an entire sea — the cradle of Phoenicia, Greece and Rome — had simply switched off. It took hundreds of studies over decades for the picture to be accepted. Today it has a name: the <strong>Messinian Salinity Crisis</strong>. It ran from about 5.96 to 5.33 million years ago, and it ended in a single event so violent it's hard to write about without sounding like science fiction.</p>
+
+    <h2>The plug in the bathtub</h2>
+    <p>Here's the thing most people never think about: the Mediterranean is not self-sustaining. It sits in a hot, dry basin and evaporates far more water than its rivers — the Nile, the Rhône, the Po, all of them combined — can put back. The only reason it exists at all is a narrow channel at Gibraltar, through which the Atlantic quietly tops it up, every hour of every day.</p>
+    <p>Cut that channel, and the sea is on a timer. Seal Gibraltar tomorrow and the water level would start dropping about a metre a year. In roughly a thousand years — a geological eyeblink, about the time separating us from the Vikings — the Mediterranean would be mostly gone.</p>
+    <p>Around six million years ago, that is precisely what happened. Africa and Iberia were grinding toward each other, and tectonic uplift near modern Gibraltar raised the seafloor until the Atlantic connection choked off. The tap closed. The sun did the rest.</p>
+    <p>What was left behind beggars description. The basin floor lies three to five kilometres below sea level — far deeper below the ocean surface than most of the Grand Canyon is below its rim. As the water fell, it left behind a landscape of hypersaline lakes shrinking in the deeps, glittering white flats, and air that grew hotter as it sank. Air compresses and warms as it descends — the same reason the Dead Sea shore, 430 metres down, is warmer than Jerusalem — and at minus four or five <em>kilometres</em>, models suggest summers up to 15°C hotter than at sea level. Some early back-of-envelope estimates put the deepest floor near 80°C; that's now considered far too extreme, but even the cautious numbers describe one of the most hostile places in Earth's history.</p>
+    <p>And the salt. As the sea died, it dropped its entire mineral load. The evaporite layer entombed under today's seafloor totals <strong>more than a million cubic kilometres</strong> — roughly fifty times the salt dissolved in the modern Mediterranean's water. It's still down there, kilometres thick in places, which is exactly what the <em>Glomar Challenger</em>'s drill bit found. Locking that much salt out of the world's oceans measurably freshened the rest of the planet's seawater. And the water itself had to go somewhere: as the Mediterranean emptied into the atmosphere and rained back out over the globe, sea levels everywhere <em>else</em> rose by roughly ten metres.</p>
+
+    <h2>Rivers falling off the edge of the world</h2>
+    <p>If you want the most haunting evidence, don't look at the salt. Look at the rivers.</p>
+    <p>A river cuts downward until it reaches the level of the sea it drains into — then it stops, because there's nowhere lower to go. But when your sea drops five kilometres, your river suddenly finds itself perched at the top of an enormous slope, and it starts sawing downward with everything it has.</p>
+    <p>In the 1960s and 70s, engineers and geologists investigating the ground around the Aswan High Dam site in Egypt found something baffling: a colossal buried gorge under the Nile, cut into solid granite, its floor more than <strong>200 metres below sea level at Aswan</strong> — some 1,200 kilometres from the coast. Downstream it gets more absurd. Beneath Cairo, boreholes hit the old canyon floor around <strong>2,500 metres below sea level</strong>. There is a chasm deeper than the Grand Canyon lying under one of the most crowded cities on Earth, silently packed with sediment, and almost nobody who lives above it has ever heard of it.</p>
+    <p>The Rhône did the same thing under what is now southern France. These buried canyons were mysteries for decades — rivers simply cannot cut that deep, unless the sea they flowed into wasn't there. They are the scars of rivers chasing a vanishing sea downhill.</p>
+    <p>Life noticed too. With the western basins dry, the gap between Africa and Iberia became crossable, and animals walked. Some kept walking out across the exposed seafloor to high ground that would later become islands. On Mallorca, a strange goat-antelope called <em>Myotragus</em> — which evolved into a knee-high oddity with forward-facing eyes — arrived during the desiccation and then, when the water returned, was trapped. Its descendants lived on those islands for the next five million years, right up until humans showed up. A marooned passenger from a drained sea.</p>
+
+    <h2>The day the ocean came back</h2>
+    <p>For somewhere in the region of 600,000 years, the Mediterranean basin sat there — a scatter of briny dead lakes at the bottom of a pit, sealed off by one ridge of rock at Gibraltar.</p>
+    <p>Then the ridge failed.</p>
+    <p>Whether it was erosion gnawing from the Atlantic side, tectonic subsidence lowering the sill, or both, at some point about 5.33 million years ago the Atlantic found a way over. And here is where the story goes from strange to genuinely hard to hold in your head, because a five-kilometre height difference between the world ocean and an empty basin is an almost incomprehensible amount of stored energy.</p>
+    <p>The event is called the <strong>Zanclean flood</strong>, and the modelling work suggests numbers like these:</p>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="figure">~100,000,000 m³/s</div>
+        <div class="gloss">Peak discharge — on the order of 450 Amazons flowing at once, and ten times the Missoula outburst floods that carved Washington State's scablands.</div>
+      </div>
+      <div class="stat">
+        <div class="figure">0.5 m of rock per day</div>
+        <div class="gloss">The flood cut the Gibraltar sill down as it ran, mobilising ~1,000 km³ of rock — it excavated its own channel mid-flood.</div>
+      </div>
+      <div class="stat">
+        <div class="figure">+10 m per day</div>
+        <div class="gloss">The rate the sea rose inside the basin. Not per century — per day.</div>
+      </div>
+      <div class="stat">
+        <div class="figure">Months, not millennia</div>
+        <div class="gloss">Perhaps 90% of the refill happened in one abrupt phase lasting somewhere between several months and two years.</div>
+      </div>
+    </div>
+
+    <p>There's a second act that's just as dramatic. The Mediterranean is really two basins separated by a shallow ridge between Sicily and North Africa. The flood filled the western basin first — and then overtopped that ridge and did the whole thing again, cascading into the empty eastern half. In 2024–25, a team including researchers at the University of Southampton mapped more than 300 streamlined, asymmetric ridges across southeast Sicily, all combed in the same direction, connected to a 20-kilometre-wide erosional channel running toward the Noto submarine canyon. Their modelling describes water tens of metres deep moving at highway speeds across what is now farmland. Those hills are teardrop-shaped because a sea moved over them.</p>
+    <p>When it was over, the Mediterranean was back — and geologically speaking, it snapped back overnight. In the sediment cores, desert gives way to open ocean across a boundary thin enough to span with your fingers.</p>
+
+    <h2>The fight isn't over</h2>
+    <p>Now, the part that keeps this story honest: not everyone buys the movie version.</p>
+    <p>The megaflood hypothesis has always had a curious weakness — for such a violent event, direct evidence is thinner than you'd expect, and some of it (like the Sicily ridges) has more mundane rival explanations. A camp of researchers argues the isolation was never total, that Atlantic water kept leaking in throughout the crisis, and that the refill may have had a slower, less cinematic component. A 2026 piece in <em>Knowable Magazine</em> lays out the case against the megaflood in detail, and a major 2024 review marking fifty years of the debate was pointedly subtitled "facts, hypotheses, and myths."</p>
+    <p>So you're reading live science. The desiccation itself — the salt, the canyons, the desert floor — is settled beyond reasonable doubt. Whether the ending was a two-year cataclysm or a longer, messier reconnection is still being argued in journals <em>this year</em>. Either way, one detail is agreed and worth sitting with: the Strait of Gibraltar is still narrow, Africa is still pushing north, and nothing says the tap can't close again.</p>
+
+    <h2>Lenses</h2>
+    <div class="lenses">
+      <div class="lens">
+        <b>Thresholds, not trends</b>
+        The Mediterranean didn't decline gradually — it was fine for as long as one sill held, then wasn't, then was again the moment the sill failed. The system's fate lived entirely in one narrow chokepoint, and when a threshold breaks, the correction doesn't happen at the pace of the original drift — it happens at the pace the stored energy allows. Most dashboards track trends; the things that end eras are usually sills.
+      </div>
+      <div class="lens">
+        <b>Being right too early looks identical to being wrong</b>
+        Hsü and Ryan's 1970 claim sounded absurd because the field had (correctly!) spent a century rejecting catastrophist stories. It took decades of boreholes, seismic surveys and channel maps to move "the sea vanished" from heresy to textbook — and the refill debate shows the machine still running, still adversarial, still unfinished. That's not science failing to make up its mind; that's what it looks like when it works.
+      </div>
+    </div>
+  </article>
+
+  <section class="pack">
+    <h2>🎧 NotebookLM pack</h2>
+    <p class="how">Paste these into a new NotebookLM notebook, then generate an Audio Overview for the ride home. This page's text is source #1 — copy it in too.</p>
+    <ol class="sources">
+      <li>
+        <span class="src-num">1</span>
+        <div>
+          <div class="src-name">That Time the Mediterranean Sea Disappeared <span class="src-kind">· PBS Eons · video · 9 min</span></div>
+          <div class="src-url"><a href="https://www.youtube.com/watch?v=HooZ84rpovQ">https://www.youtube.com/watch?v=HooZ84rpovQ</a></div>
+        </div>
+      </li>
+      <li>
+        <span class="src-num">2</span>
+        <div>
+          <div class="src-name">New evidence suggests megaflood refilled the Mediterranean <span class="src-kind">· Phys.org · Jan 2025 · article</span></div>
+          <div class="src-url"><a href="https://phys.org/news/2025-01-evidence-megaflood-refilled-mediterranean-sea.html">https://phys.org/news/2025-01-evidence-megaflood-refilled-mediterranean-sea.html</a></div>
+        </div>
+      </li>
+      <li>
+        <span class="src-num">3</span>
+        <div>
+          <div class="src-name">The case against the Zanclean megaflood <span class="src-kind">· Knowable Magazine · 2026 · the sceptics' side</span></div>
+          <div class="src-url"><a href="https://knowablemagazine.org/content/article/physical-world/2026/case-against-zanclean-megaflood-filling-mediterranean">https://knowablemagazine.org/content/article/physical-world/2026/case-against-zanclean-megaflood-filling-mediterranean</a></div>
+        </div>
+      </li>
+      <li>
+        <span class="src-num">4</span>
+        <div>
+          <div class="src-name">Zanclean flood reaching Sicily — research-group animation <span class="src-kind">· video · bonus visual</span></div>
+          <div class="src-url"><a href="https://www.youtube.com/watch?v=B5uW7Qg6rXM">https://www.youtube.com/watch?v=B5uW7Qg6rXM</a></div>
+        </div>
+      </li>
+    </ol>
+    <div class="focus">
+      <b>Suggested Audio Overview focus</b>
+      "Debate whether the Zanclean flood was a two-year catastrophe or a gradual refill — steelman both sides, and explain what evidence would settle it."
+    </div>
+  </section>
+  <!-- EDITION CONTENT END -->
+
+  <footer>
+    Edition #1 — test edition · Next edition: Monday, from a different bucket<br>
+    Every number above verified against sources this morning · Wrong fact? It gets corrected in the next edition's footer<br>
+    <a href="/">Latest edition</a> · <a href="/archive.html">All editions</a>
+  </footer>
+</div>
+
+</body>
+</html>
